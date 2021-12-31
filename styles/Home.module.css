@@ -127,7 +127,8 @@
   align-items: center;
 }
 
-.morecard {
+.morecard,
+.imagecard {
   margin: 1rem;
   padding: 1.5rem;
   text-align: left;
@@ -136,13 +137,31 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  width: 100%;
   text-align: center;
 }
 
 .morecard:hover,
 .morecard:focus,
-.morecard:active {
+.morecard:active,
+.imagecard:hover,
+.imagecard:focus,
+.imagecard:active {
   color: #0070f3;
   border-color: #0070f3;
+}
+
+.productImage {
+  position: relative;
+  height: 250px !important;
+  width: 250px !important;
+}
+
+.productImage > * {
+  position: absolute !important;
+}
+
+.shirtSticker {
+  height: 100px;
+  left: 0;
+  top: 25%;
 }

@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export default function Home({ products: productsData }) {
+  const [showMore, setShowMore] = useState(false);
   return (
     <>
       <div className={styles.container}>
@@ -17,39 +20,58 @@ export default function Home({ products: productsData }) {
             The best planet shirts on the interwebs.
           </p>
           <div className={styles.grid}>
-            <a href="https://nextjs.org/docs" className={styles.card}>
+            <div href="https://nextjs.org/docs" className={styles.card}>
               <h2>Choose from a wide array of planets &rarr;</h2>
               <p>Nine to be exact!</p>
-            </a>
+            </div>
 
-            <a href="https://nextjs.org/learn" className={styles.card}>
+            <div href="https://nextjs.org/learn" className={styles.card}>
               <h2>Choose Best fit for you</h2>
               <p>XXL is sold out though.</p>
-            </a>
+            </div>
 
-            <a href="https://nextjs.org/learn" className={styles.card}>
+            <div href="https://nextjs.org/learn" className={styles.card}>
               <h2>Try the planet look</h2>
               <p>Very Powerful with the power of cosmos</p>
-            </a>
-            <a href="https://nextjs.org/learn" className={styles.card}>
+            </div>
+            <div href="https://nextjs.org/learn" className={styles.card}>
               <h2>Black & White Variants</h2>
               <p>Come to dark side.</p>
-            </a>
+            </div>
           </div>
         </aside>
         <main className={styles.main}>
-          {productsData.map(({ name }) => (
-            <Image
-              src={`/planets/${name}.svg`}
-              key={name}
-              alt="planet 1"
-              height="250"
-              width="250"
-            ></Image>
-          ))}
-          <a href="/products" className={styles.morecard}>
-            <h3>More planets </h3>
-          </a>
+          {productsData
+            .slice(0, showMore ? productsData.length : 6)
+            .map(({ name }) => (
+              <div className={styles.imagecard} key={name}>
+                <div className={styles.productImage}>
+                  {" "}
+                  <Image src="/tshirt-white.webp" layout="fill" alt="t shirt" />
+                  <img
+                    src={`/planets/${name}.svg`}
+                    key={name}
+                    className={styles.shirtSticker}
+                    alt="planet 1"
+                    height="250"
+                    width="250"
+                  ></img>
+                </div>
+                <Image
+                  src={`/planets/${name}.svg`}
+                  alt={`Planet ${name}`}
+                  height="250"
+                  width="250"
+                ></Image>
+              </div>
+            ))}
+          <button
+            onClick={() => setShowMore(!showMore)}
+            passHref={true}
+            className={styles.morecard}
+          >
+            <h3>{showMore ? "Less" : "More"} planets </h3>
+          </button>
         </main>
       </div>
       <footer className={styles.footer}>
