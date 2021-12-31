@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
+import { initiateCheckout } from "../lib/payments";
 
 export default function Home({ products: productsData }) {
   const [showMore, setShowMore] = useState(false);
@@ -43,7 +44,7 @@ export default function Home({ products: productsData }) {
         <main className={styles.main}>
           {productsData
             .slice(0, showMore ? productsData.length : 6)
-            .map(({ name }) => (
+            .map(({ name, id }) => (
               <div className={styles.imagecard} key={name}>
                 <div className={styles.productImage}>
                   {" "}
@@ -63,6 +64,16 @@ export default function Home({ products: productsData }) {
                   height="250"
                   width="250"
                 ></Image>
+                <button
+                  onClick={() =>
+                    initiateCheckout({
+                      lineItems: [{ quantity: 1, price: id }],
+                    })
+                  }
+                  className={styles.buyNow}
+                >
+                  Buy Now
+                </button>
               </div>
             ))}
           <button
