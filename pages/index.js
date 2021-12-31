@@ -58,3 +58,11 @@ export default function Home() {
     </>
   );
 }
+
+export async function getServerSideProps(context) {
+  const data = await (
+    await fetch(`${process.env.HOST_URL}/api/products`)
+  ).json();
+  console.log(data);
+  return { props: { data } };
+}
