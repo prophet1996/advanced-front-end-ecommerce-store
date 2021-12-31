@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({ products: productsData }) {
   return (
     <>
       <div className={styles.container}>
@@ -38,12 +38,18 @@ export default function Home() {
           </div>
         </aside>
         <main className={styles.main}>
-          <Image
-            src="/planets/Atarland.svg"
-            alt="planet 1"
-            height="250"
-            width="250"
-          ></Image>
+          {productsData.map(({ name }) => (
+            <Image
+              src={`/planets/${name}.svg`}
+              key={name}
+              alt="planet 1"
+              height="250"
+              width="250"
+            ></Image>
+          ))}
+          <a href="/products" className={styles.morecard}>
+            <h3>More planets </h3>
+          </a>
         </main>
       </div>
       <footer className={styles.footer}>
@@ -64,5 +70,5 @@ export async function getServerSideProps(context) {
     await fetch(`${process.env.HOST_URL}/api/products`)
   ).json();
   console.log(data);
-  return { props: { data } };
+  return { props: data };
 }
